@@ -13,10 +13,13 @@ var TwitterModel = (function () {
         if(id.length == 0) {
             errorFunc("ID is not inputted...");
         }
-        var api = "http://api.twitter.com/1/statuses/user_timeline/" + id + ".json?callback=?";
-        console.log("search : " + api);
-        $.getJSON(api, function (data) {
-            successFunc(data);
+        var url = "http://api.twitter.com/1/statuses/user_timeline/" + id + ".json?callback=?&suppress_response_codes=true";
+        $.getJSON(url, function (data) {
+            if(data.error == undefined) {
+                successFunc(data);
+            } else {
+                errorFunc("Data was not found...");
+            }
         });
     };
     return TwitterModel;
@@ -60,6 +63,7 @@ var TwitterView = (function () {
         var _this = this;
         if(results.length == 0) {
             this.showError("Not exists data...");
+            return;
         }
         var li = "";
         var color = "";
@@ -111,6 +115,7 @@ var TwitterController = (function () {
         };
         var errorFunc = function (error) {
             _this.view.showError(error);
+            _this.view.endLoading();
         };
         this.model.search(this.view.getId(), successFunc, errorFunc);
     };

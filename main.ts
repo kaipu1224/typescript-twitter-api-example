@@ -24,11 +24,14 @@ class TwitterModel {
 			errorFunc("ID is not inputted...");
 		}
 
-		var api = "http://api.twitter.com/1/statuses/user_timeline/" + id + ".json?callback=?";
-		console.log("search : " + api);
-		
-		$.getJSON(api, function(data){
-			successFunc(data);
+		var url = "http://api.twitter.com/1/statuses/user_timeline/" + id + ".json?callback=?&suppress_response_codes=true";
+
+		$.getJSON(url, function(data){
+			if(data.error == undefined){
+				successFunc(data);
+			}else{
+				errorFunc("Data was not found...");
+			}
 		});
 	}
 }
@@ -87,6 +90,7 @@ class TwitterView {
 		// ごちゃごちゃしすぎた(´・ω・｀)
 		if(results.length == 0){
 			this.showError("Not exists data...");
+			return;
 		}
 		var li = "";
 		var color = "";
@@ -140,7 +144,10 @@ class TwitterController {
 			this.view.render(data);
 			this.view.endLoading();
 		};
-		var errorFunc = (error)=>{ this.view.showError(error); };
+		var errorFunc = (error)=>{
+			this.view.showError(error);
+			this.view.endLoading();
+		};
 		this.model.search(this.view.getId(), successFunc, errorFunc);
 	}
 }
