@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja-JP">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Twitter API example</title>
+	<link rel="stylesheet" href="css/modern.css" media="all">
+	<link rel="stylesheet" href="css/modern-responsive.css" media="all">
+	<link rel="stylesheet" href="css/site.css" media="all">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+</head>
+<body class="modern-ui">
+	<page class="page">
+		<div class="navigation-bar">
+			<div class="navigation-bar-inner">
+				<div class="brand">
+					<span class="name">Twitter API example</span>
+				</div>
+			</div>
+		</div>
+		<div class="page-region">
+			<div class="page-region-content">
+				<div class="row">
+					<input type="text" class="myText" id="idText"/>
+				    <input type="button" id="searchBtn" class="bg-color-blue" value="Search"/>
+				</div>
+				<div class="row">
+					<div class="error-bar fg-color-white" id="errorDialog">
+						<p id="errorMessage"></p>
+						<button class="place-right" id="closeBtn">close</button>
+					</div>
+					<div class="message-dialog bg-color-blueLight fg-color-white" id="messageDialog">
+						<p>Now loading, please wait...</p>
+					</div>
+					<ul class="listview" id="resultList">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="main.js" type="text/javascript" charset="utf-8" async defer></script>
+</body>
+</html>
